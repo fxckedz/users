@@ -1,4 +1,6 @@
-import { IController } from "../protocols";
+import { User } from "../../models/User";
+import { ok, serverError } from "../helpers";
+import { HttpResponse, IController } from "../protocols";
 import { IGetUsersRepository } from "./protocols";
 
 export class GetUsersController implements IController {
@@ -6,21 +8,15 @@ export class GetUsersController implements IController {
     this.getUsersRepository = getUsersRepository;
   }
 
-  async handle() {
+  async handle(): Promise<HttpResponse<User[] | string>> {
     try {
       //validar requisição
       //direcionar chamada para o repository
       const users = await this.getUsersRepository.getUsers();
 
-      return {
-        statusCode: 200,
-        body: users,
-      };
+      return ok<User[]>(users);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: "Internal Server Error",
-      };
+      return serverError();
     }
   }
 }
