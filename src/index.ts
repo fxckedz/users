@@ -6,6 +6,8 @@ import "dotenv/config";
 const runServer = async () => {
   const server = express();
 
+  server.use(express.json());
+
   await MongoClient.connect();
 
   server.use(router);
