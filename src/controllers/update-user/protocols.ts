@@ -1,6 +1,4 @@
 import { User } from "../../models/User";
-import { HttpResponse, HttpRequest } from "../protocols";
-
 export interface UpdateUserParams {
   firstName?: string;
   lastName?: string;
